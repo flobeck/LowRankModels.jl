@@ -119,12 +119,13 @@ mutable struct NonNegOneReg<:Regularizer
     scale::Float64
 end
 NonNegOneReg() = NonNegOneReg(1)
-prox(r::NonNegOneReg,u::AbstractArray,alpha::Number) = max.(u-alpha,0)
+prox(r::NonNegOneReg,u::AbstractArray,alpha::Number) = max.(u.-alpha,0)
 
-prox!(r::NonNegOneReg,u::AbstractArray,alpha::Number) = begin
-  nonnegsoftthreshold = (x::Number -> max.(x-alpha,0))
-  map!(nonnegsoftthreshold, u)
-end
+
+prox!(r::NonNegOneReg,u::AbstractArray,alpha::Number) = begin	function prox!(r::NonNegOneReg,u::AbstractArray,alpha::Number)
+  nonnegsoftthreshold = (x::Number -> max.(x-alpha,0))	  nonnegsoftthreshold = (x::Number -> max(x-alpha,0))
+  map!(nonnegsoftthreshold, u)	  map!(nonnegsoftthreshold, u, u)
+end	end
 
 function evaluate(r::NonNegOneReg,a::AbstractArray)
     for ai in a

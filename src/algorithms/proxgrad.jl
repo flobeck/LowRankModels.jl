@@ -211,10 +211,12 @@ function fit!(glrm::GLRM, params::ProxGradParams;
         if i>10 && (obj_decrease < scaled_abs_tol || obj_decrease/obj < params.rel_tol)
             break
         end
-        if verbose && i%10==0
-            println("Iteration $i: objective value = $(ch.objective[end])")
+        if verbose && i%100==0
+            println("ITERATION $i:,  obj value = $(round(ch.objective[end], digits=7))   |||   rel_tol = $(rel_tol)   |||   abs_tol = $(abs_tol)")
+            println("rel error = $(obj_decrease/obj)   |||   abs error = $(obj_decrease)")
         end
     end
 
     return glrm.X, glrm.Y, ch
 end
+
