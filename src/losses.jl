@@ -260,8 +260,10 @@ end
 
 grad(l::KullbackLeiblerLoss, u::Float64, a::Number) = l.scale*(1 - (a/(1e-15 + u)))
 
-
-M_estimator(l::KullbackLeiblerLoss, a::AbstractArray) = log(mean(a))
+function M_estimator(l::KullbackLeiblerLoss, a::AbstractArray)
+    N = length(a)
+    exp.(sum(log.(a + 1e-15))/N)
+end
 
 
 ########################################## ORDINAL HINGE ##########################################
