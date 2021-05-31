@@ -40,6 +40,7 @@ import Optim: optimize, LBFGS
 export Loss,
        DiffLoss, ClassificationLoss, SingleDimLoss, # categories of Losses
        QuadLoss, L1Loss, HuberLoss, QuantileLoss, # losses for predicting reals
+       KullbackLeiblerLoss, #  loss for exponential family distributions
        PoissonLoss, # losses for predicting integers
        HingeLoss, WeightedHingeLoss, LogisticLoss, # losses for predicting booleans
        OrdinalHingeLoss, OrdisticLoss, MultinomialOrdinalLoss, BvSLoss, # losses for predicting ordinals
