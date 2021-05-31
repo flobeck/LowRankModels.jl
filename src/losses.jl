@@ -262,7 +262,7 @@ grad(l::KullbackLeiblerLoss, u::Float64, a::Number) = l.scale*(1 - (a/(1e-15 + u
 
 function M_estimator(l::KullbackLeiblerLoss, a::AbstractArray)
     N = length(a)
-    exp.(sum(log.(a + 1e-15))/N)
+    exp.(sum(log.(a .+ 1e-15))/N)
 end
 
 
