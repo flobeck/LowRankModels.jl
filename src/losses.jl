@@ -251,7 +251,7 @@ mutable struct KullbackLeiblerLoss<:Loss
     scale::Float64
     domain::Domain
 end
-KullbackLeiblerLoss(max_count=2^31::Int; domain=CountDomain(max_count)::Domain) = PoissonLoss(1.0, domain)
+KullbackLeiblerLoss(max_count=2^31::Int; domain=CountDomain(max_count)::Domain) = KullbackLeiblerLoss(1.0, domain)
 
 function evaluate(l::KullbackLeiblerLoss, u::Float64, a::Number)
     return l.scale * (a*log((a+1e-15)/(u+1e-15)) - a + u)
