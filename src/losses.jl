@@ -261,6 +261,9 @@ end
 grad(l::KullbackLeiblerLoss, u::Float64, a::Number) = l.scale*(1 - (a/(1e-15 + u)))
 
 
+M_estimator(l::KullbackLeiblerLoss, a::AbstractArray) = log(mean(a))
+
+
 ########################################## ORDINAL HINGE ##########################################
 # f: ℜx{min, min+1... max-1, max} -> ℜ
 mutable struct OrdinalHingeLoss<:Loss
