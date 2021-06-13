@@ -252,24 +252,25 @@ mutable struct KullbackLeiblerLoss<:Loss
     scale::Float64
     domain::Domain
 end
-KullbackLeiblerLoss(max_count=2^31::Int; domain=CountDomain(max_count)::Domain) = KullbackLeiblerLoss(1.0, domain)
+
+KullbackLeiblerLoss(scale=1.0::Float64; domain=RealDomain()) = KullbackLeiblerLoss(scale, domain)
 
 
 # Following conventions found in:
 # Elements of Information Theory, Cover and Thomas
 function evaluate(l::KullbackLeiblerLoss, u::Float64, a::Number)
     if a == 0
-        return 0
+        return 0.0
     end
 
     return l.scale * (a*log(a/u) - a + u)
 end
 
-grad(l::KullbackLeiblerLoss, u::Float64, a::Number) = l.scale*(1 - (a/(1e-15 + u)))
+grad(l::KullbackLeiblerLoss, u::Float64, a::Number) = l.scale*(1 - (a/(1e-8 + u)))
 
 function M_estimator(l::KullbackLeiblerLoss, a::AbstractArray)
     N = length(a)
-    a[a .== 0] .= 1 
+    a[a .== 0] .= 1.0
 
     exp.(sum(log.(a))/N)
 end
