@@ -49,8 +49,8 @@ function fit!(glrm::GLRM, params::ProxGradParams;
     m,n = size(A)
     
     ##### !! added
-    stepsize_incr = 1.01  # originally 1.05    
-    stepsize_decr = 0.5   # originally 0.7
+    stepsize_incr = 1.05  # originally 1.05    
+    stepsize_decr = 0.7   # originally 0.7
 
 
     ####
